@@ -1,0 +1,36 @@
+<div class="container">
+  <h1>Dashboard 📊</h1>
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (data) {
+    <div class="stats">
+      <div class="stat-card">
+        <h3>Chiffre d'affaires</h3>
+        <p class="stat-value">{{ data.totalRevenue }} €</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Dépenses</h3>
+        <p class="stat-value">{{ data.totalExpenses }} €</p>
+      </div>
+
+      <div class="stat-card" [class.positive]="data.profit > 0" [class.negative]="data.profit < 0">
+        <h3>Bénéfice</h3>
+        <p class="stat-value">{{ data.profit }} €</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Nombre de ventes</h3>
+        <p class="stat-value">{{ data.totalSales }}</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Produits en stock</h3>
+        <p class="stat-value">{{ data.totalProducts }}</p>
+      </div>
+    </div>
+  }
+</div>
