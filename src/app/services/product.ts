@@ -26,8 +26,9 @@ export class ProductService {
     return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
-  getAll(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl, { headers: this.getHeaders()});
+  getAll(category?: string): Observable<Product[]> {
+    const url = category ? `${this.apiUrl}?category=${category}` : this.apiUrl;
+    return this.http.get<Product[]>(url, { headers: this.getHeaders()});
   }
 
   getById(id: number): Observable<Product> {

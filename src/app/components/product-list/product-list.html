@@ -5,11 +5,22 @@
     <button (click)="router.navigate(['/products/add'])">Ajouter un produit</button>
   </div>
 
+  <div class="filters">
+  <select [(ngModel)]="selectedCategory" (ngModelChange)="onCategoryChange()">
+    <option value="">Toutes les catégories</option>
+    @for (cat of categories.slice(1); track cat) {
+      <option [value]="cat">{{ cat }}</option>
+    }
+  </select>
+</div>
+
   @if (error) {
     <div class="error">{{ error }}</div>
   }
 
   @if (products.length > 0) {
+
+    
     <table>
       <thead>
         <tr>

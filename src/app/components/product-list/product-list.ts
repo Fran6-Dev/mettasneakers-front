@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Product, ProductService } from '../../services/product';
 import { Router, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-list',
-  imports: [RouterModule],
+  imports: [RouterModule, FormsModule],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })
@@ -13,6 +14,8 @@ export class ProductList implements OnInit {
   products: Product[] = [];
   loading = false;
   error = '';
+  selectedCategory = '';
+  categories = ['', 'SNEAKER', 'VETEMENT', 'ACCESSOIRE'];
 
   constructor(
     private productService: ProductService,
@@ -24,21 +27,21 @@ export class ProductList implements OnInit {
     this.loadProducts();
   }
 
+
   loadProducts(): void {
-    this.loading = true;
-    this.cdr.detectChanges();
-    this.productService.getAll().subscribe({
+    this.productService.getAll(this.selectedCategory).subscribe({
       next: (data) => {
         this.products = [...data];
-        this.loading = false;
         this.cdr.detectChanges();
       },
       error: () => {
         this.error = 'Erreur lors du chargement des produits';
-        this.loading = false;
-        this.cdr.detectChanges();
       }
     });
+  }
+
+  onCategoryChange(): void {
+    this.loadProducts();
   }
 
   deleteProduct(id: number): void {
