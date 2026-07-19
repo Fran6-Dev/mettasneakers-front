@@ -1,0 +1,62 @@
+<div class="container">
+  <h1>Ventes 🛍️</h1>
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (success) {
+    <div class="success">{{ success }}</div>
+  }
+
+  <div class="new-sale">
+    <h2>Enregistrer une vente</h2>
+    <div class="form-group">
+      <label>Produit</label>
+      <select [(ngModel)]="newSale.productId" name="productId">
+        <option [value]="0">Sélectionner un produit</option>
+        @for (product of products; track product.id) {
+          <option [value]="product.id">{{ product.name }} - {{ product.brand }} (Stock: {{ product.stock }})</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Quantité</label>
+      <input type="number" [(ngModel)]="newSale.quantity" name="quantity" min="1" />
+    </div>
+
+    <button (click)="createSale()">Enregistrer la vente</button>
+  </div>
+
+  <h2>Historique des ventes</h2>
+
+  @if (sales.length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Marque</th>
+          <th>Quantité</th>
+          <th>Total</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (sale of sales; track sale.id) {
+          <tr>
+            <td>{{ sale.productName }}</td>
+            <td>{{ sale.productBrand }}</td>
+            <td>{{ sale.quantity }}</td>
+            <td>{{ sale.totalPrice }} €</td>
+            <td>{{ sale.saleDate | date:'dd/MM/yyyy HH:mm' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  @if (sales.length === 0) {
+    <p>Aucune vente enregistrée.</p>
+  }
+</div>
