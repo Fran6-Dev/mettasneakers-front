@@ -19,7 +19,8 @@ export class Sales implements OnInit {
 
   newSale : CreateSaleRequest = {
     productId: 0,
-    quantity: 1
+    quantity: 1,
+    promotion: 0
   };
 
   constructor(
@@ -59,7 +60,7 @@ export class Sales implements OnInit {
     this.saleService.create(this.newSale).subscribe({
       next: () => {
         this.success = 'Vente enregistrée avec succès !';
-        this.newSale = { productId: 0, quantity: 1 };
+        this.newSale = { productId: 0, quantity: 1, promotion : 0 };
         this.loadSales();
         this.loadProducts();
       },

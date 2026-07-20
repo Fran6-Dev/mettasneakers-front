@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 export interface Schedule {
   id?: number;
   employeeName: string;
-  day: string;
+  date: string;
   startTime: string;
   endTime: string;
   note?: string;
@@ -13,7 +13,7 @@ export interface Schedule {
 
 export interface CreateScheduleRequest {
   employeeName: string;
-  day: string;
+  date: string;
   startTime: string;
   endTime: string;
   note?: string;

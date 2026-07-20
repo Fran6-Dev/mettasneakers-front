@@ -26,6 +26,11 @@
       <input type="number" [(ngModel)]="newSale.quantity" name="quantity" min="1" />
     </div>
 
+    <div class="form-group">
+        <label>Promotion</label>
+        <input type=""number [(ngModel)]="newSale.promotion" name="promotion" min="0"/>
+    </div>
+
     <button (click)="createSale()">Enregistrer la vente</button>
   </div>
 
@@ -38,6 +43,7 @@
           <th>Produit</th>
           <th>Marque</th>
           <th>Quantité</th>
+          <th>Promotion</th>
           <th>Total</th>
           <th>Date</th>
         </tr>
@@ -48,6 +54,7 @@
             <td>{{ sale.productName }}</td>
             <td>{{ sale.productBrand }}</td>
             <td>{{ sale.quantity }}</td>
+            <td>{{ sale.promotion }}</td>
             <td>{{ sale.totalPrice }} €</td>
             <td>{{ sale.saleDate | date:'dd/MM/yyyy HH:mm' }}</td>
           </tr>

@@ -8,6 +8,7 @@ export interface Sale {
   productName?: string;
   productBrand?: string;
   quantity: number;
+  promotion: number;
   totalPrice?: number;
   saleDate?: string;
 }
@@ -15,6 +16,7 @@ export interface Sale {
 export interface CreateSaleRequest {
   productId: number;
   quantity: number;
+  promotion: number;
 }
 
 @Injectable({

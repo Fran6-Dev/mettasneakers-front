@@ -18,12 +18,8 @@
     </div>
 
     <div class="form-group">
-      <label>Jour</label>
-      <select [(ngModel)]="newSchedule.day" name="day">
-        @for (day of days; track day) {
-          <option [value]="day">{{ day }}</option>
-        }
-      </select>
+      <label>Date</label>
+      <input type="date" [(ngModel)]="newSchedule.date" name="date" required />
     </div>
 
     <div class="form-group">
@@ -44,14 +40,12 @@
     <button (click)="createSchedule()">Ajouter</button>
   </div>
 
-  <h2>Planning de la semaine</h2>
-
   @if (schedules.length > 0) {
     <table>
       <thead>
         <tr>
           <th>Employé</th>
-          <th>Jour</th>
+          <th>Date</th>
           <th>Début</th>
           <th>Fin</th>
           <th>Note</th>
@@ -62,7 +56,7 @@
         @for (schedule of schedules; track schedule.id) {
           <tr>
             <td>{{ schedule.employeeName }}</td>
-            <td>{{ schedule.day }}</td>
+            <td>{{ schedule.date | date:'dd/MM/yyyy' }}</td>
             <td>{{ schedule.startTime }}</td>
             <td>{{ schedule.endTime }}</td>
             <td>{{ schedule.note }}</td>
