@@ -1,0 +1,44 @@
+.filters {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filters select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  background: white;
+  cursor: pointer;
+}
+
+.filters select:focus {
+  border-color: #1a1a1a;
+}
+
+td button {
+  padding: 6px 12px;
+  font-size: 13px;
+  margin-right: 6px;
+}
+
+td button:first-child {
+  background: #f0f0f0;
+  color: #1a1a1a;
+}
+
+td button:first-child:hover {
+  background: #e0e0e0;
+}
+
+td button:last-child {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+td button:last-child:hover {
+  background: #fecaca;
+}

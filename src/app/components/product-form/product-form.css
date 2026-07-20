@@ -1,0 +1,32 @@
+.container {
+  max-width: 600px;
+}
+
+form {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid #eee;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 1.5rem;
+}
+
+.form-actions button:first-child {
+  background: #f0f0f0;
+  color: #1a1a1a;
+}
+
+.form-actions button:first-child:hover {
+  background: #e0e0e0;
+}
+
+.form-actions button:last-child {
+  background: #1a1a1a;
+  color: white;
+  flex: 1;
+}
