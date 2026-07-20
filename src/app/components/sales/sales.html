@@ -16,7 +16,7 @@
       <select [(ngModel)]="newSale.productId" name="productId">
         <option [value]="0">Sélectionner un produit</option>
         @for (product of products; track product.id) {
-          <option [value]="product.id">{{ product.name }} - {{ product.brand }} (Stock: {{ product.stock }})</option>
+          <option [value]="product.id"> {{ product.brand }} - {{ product.name }} - {{ product.size }} (Stock: {{ product.stock }})</option>
         }
       </select>
     </div>
@@ -43,6 +43,7 @@
           <th>Produit</th>
           <th>Marque</th>
           <th>Quantité</th>
+          <th>Taille</th>
           <th>Promotion</th>
           <th>Total</th>
           <th>Date</th>
@@ -54,6 +55,7 @@
             <td>{{ sale.productName }}</td>
             <td>{{ sale.productBrand }}</td>
             <td>{{ sale.quantity }}</td>
+            <td>{{ sale.productSize }}</td>
             <td>{{ sale.promotion }}</td>
             <td>{{ sale.totalPrice }} €</td>
             <td>{{ sale.saleDate | date:'dd/MM/yyyy HH:mm' }}</td>

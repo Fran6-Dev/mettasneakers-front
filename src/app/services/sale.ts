@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Sale {
   id?: number;
@@ -8,6 +9,7 @@ export interface Sale {
   productName?: string;
   productBrand?: string;
   quantity: number;
+  productSize: string;
   promotion: number;
   totalPrice?: number;
   saleDate?: string;
@@ -24,7 +26,7 @@ export interface CreateSaleRequest {
 })
 export class SaleService {
 
-  private apiUrl = 'https://sneaker-api-production-bbed.up.railway.app/sales';
+  private apiUrl = `${environment.apiUrl}/sales`;
 
   constructor(private http: HttpClient) {}
 

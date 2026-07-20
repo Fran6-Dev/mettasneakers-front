@@ -20,7 +20,7 @@ export class Sales implements OnInit {
   newSale : CreateSaleRequest = {
     productId: 0,
     quantity: 1,
-    promotion: 0
+    promotion: 0,
   };
 
   constructor(

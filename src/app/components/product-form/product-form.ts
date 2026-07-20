@@ -15,6 +15,7 @@ export class ProductForm implements OnInit {
     name: '',
     brand: '',
     price: 0,
+    size: '',
     stock: 0,
     description: '',
     category: 'SNEAKER'

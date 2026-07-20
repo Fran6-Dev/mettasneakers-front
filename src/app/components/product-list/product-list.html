@@ -28,6 +28,7 @@
           <th>Marque</th>
           <th>Catégorie</th>
           <th>Prix</th>
+          <th>Taille</th>
           <th>Stock</th>
           <th>Actions</th>
         </tr>
@@ -39,6 +40,7 @@
             <td>{{ product.brand }}</td>
             <td>{{ product.category }}</td>
             <td>{{ product.price }} €</td>
+            <td>{{ product.size}}</td>
             <td>{{ product.stock }}</td>
             <td>
               <button (click)="router.navigate(['/products/edit', product.id])">Modifier</button>

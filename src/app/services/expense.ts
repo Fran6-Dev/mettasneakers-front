@@ -1,6 +1,7 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Expense {
   id?: number;
@@ -21,7 +22,7 @@ export interface CreateExpenseRequest {
 })
 export class ExpenseService {
 
-  private apiUrl = 'https://sneaker-api-production-bbed.up.railway.app/expenses';
+  private apiUrl = `${environment.apiUrl}/expenses`;
 
   constructor(private http: HttpClient) {}
 

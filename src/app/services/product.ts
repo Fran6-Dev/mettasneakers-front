@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
 
 export interface Product {
   id?: number;
@@ -8,6 +10,7 @@ export interface Product {
   brand: string;
   category: string;
   price: number;
+  size: string;
   stock: number;
   description?: string;
 }
@@ -17,7 +20,7 @@ export interface Product {
   providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = 'https://sneaker-api-production-bbed.up.railway.app/products';
+  private apiUrl = `${environment.apiUrl}/products`;
 
   constructor(private http: HttpClient) {}
 
