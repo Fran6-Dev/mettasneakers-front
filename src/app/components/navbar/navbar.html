@@ -1,13 +1,17 @@
 @if (isLoggedIn()) {
   <nav class="navbar">
     <div class="navbar-brand">
-      👟 Sneaker Manager
+      👟 Mettasneakers
     </div>
     <div class="navbar-links">
       <a routerLink="/products" routerLinkActive="active">Produits</a>
       <a routerLink="/sales" routerLinkActive="active">Ventes</a>
-      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-      <a routerLink="/expenses" routerLinkActive="active">Dépenses</a>
+
+      @if (isAdmin()) {
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/expenses" routerLinkActive="active">Dépenses</a>
+      }
+
       <a routerLink="/schedule" routerLinkActive="active">Planning</a>
       <button (click)="logout()">Déconnexion</button>
     </div>

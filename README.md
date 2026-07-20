@@ -1,59 +1,43 @@
-# SneakerFont
+# Sneaker Manager for Mettasneakers — Frontend 👟
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.18.
+Interface Angular pour la gestion d'une boutique de sneakers.
 
-## Development server
+## Stack technique
 
-To start a local development server, run:
+- Angular 17+
+- TypeScript
+- JWT Authentication
+- HttpClient
+
+## Pages
+
+| Page | Accès | Description |
+|------|-------|-------------|
+| Login | Public | Connexion avec JWT |
+| Produits | Authentifié | Liste, ajout, modification, suppression |
+| Ventes | Authentifié | Enregistrer et historique des ventes |
+| Planning | Authentifié | Emploi du temps des employés |
+| Dashboard | Admin | Stats trésorerie et ventes |
+| Dépenses | Admin | Gestion des charges |
+
+## Installation
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+L'app tourne sur `http://localhost:4200`
 
-## Code scaffolding
+## Backend
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+API Spring Boot disponible sur [sneaker-api](https://github.com/Fran6-Dev/sneaker-api)
 
-```bash
-ng generate component component-name
-```
+## Fonctionnalités
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Auth JWT avec guard sur toutes les routes
+- Rôles ADMIN/USER — liens admin masqués pour les utilisateurs simples
+- CRUD produits avec filtre par catégorie (SNEAKER, VETEMENT, ACCESSOIRE)
+- Gestion des ventes avec décrémentation automatique du stock
+- Dashboard trésorerie (chiffre d'affaires, dépenses, bénéfice)
+- Emploi du temps hebdomadaire
