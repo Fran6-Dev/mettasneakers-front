@@ -15,7 +15,7 @@ export interface DashboardData {
 })
 export class DashboardService {
 
-  private apiUrl = 'http://localhost:8080/dashboard';
+  private apiUrl = 'https://sneaker-api-production-bbed.up.railway.app/dashboard';
 
   constructor(private http: HttpClient) {}
 

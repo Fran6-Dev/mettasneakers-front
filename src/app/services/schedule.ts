@@ -24,7 +24,7 @@ export interface CreateScheduleRequest {
 })
 export class ScheduleService {
 
-  private apiUrl = 'http://localhost:8080/schedules';
+  private apiUrl = 'https://sneaker-api-production-bbed.up.railway.app/schedules';
 
   constructor(private http: HttpClient) {}
 

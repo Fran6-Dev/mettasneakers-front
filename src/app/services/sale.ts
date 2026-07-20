@@ -24,7 +24,7 @@ export interface CreateSaleRequest {
 })
 export class SaleService {
 
-  private apiUrl = 'http://localhost:8080/sales';
+  private apiUrl = 'https://sneaker-api-production-bbed.up.railway.app/sales';
 
   constructor(private http: HttpClient) {}
 

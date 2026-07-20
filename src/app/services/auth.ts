@@ -22,7 +22,7 @@ export interface AuthResponse {
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:8080/auth';
+  private apiUrl = 'https://sneaker-api-production-bbed.up.railway.app/auth';
 
   constructor(private http: HttpClient) {}
 
