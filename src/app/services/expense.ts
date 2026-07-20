@@ -1,0 +1,45 @@
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+export interface Expense {
+  id?: number;
+  description: string;
+  amount: number;
+  category: string;
+  expenseDate?: string;
+}
+
+export interface CreateExpenseRequest {
+  description: string;
+  amount: number;
+  category: string;
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ExpenseService {
+
+  private apiUrl = 'http://localhost:8080/expenses';
+
+  constructor(private http: HttpClient) {}
+
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({ Authorization: `Bearer ${token}`});
+  }
+
+  getAll(): Observable<Expense[]> {
+    return this.http.get<Expense[]>(this.apiUrl, { headers: this.getHeaders() });
+  }
+
+  create(request: CreateExpenseRequest): Observable<Expense> {
+    return this.http.post<Expense>(this.apiUrl, request, { headers: this.getHeaders() });
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
+  }
+
+}

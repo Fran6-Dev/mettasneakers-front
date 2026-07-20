@@ -5,6 +5,7 @@ import { authGuard } from './guards/auth-guard';
 import { ProductForm } from './components/product-form/product-form';
 import { Sales } from './components/sales/sales';
 import { Dashboard } from './components/dashboard/dashboard';
+import { Expenses } from './components/expenses/expenses';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -13,5 +14,7 @@ export const routes: Routes = [
   { path: 'products/add', component: ProductForm, canActivate: [authGuard] },
   { path: 'products/edit/:id', component: ProductForm, canActivate: [authGuard] },
   { path: 'sales', component: Sales, canActivate: [authGuard] },
-  { path: 'dashboard', component: Dashboard, canActivate: [authGuard] }
+  { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
+    { path: 'expenses', component: Expenses, canActivate: [authGuard] },
+
 ];

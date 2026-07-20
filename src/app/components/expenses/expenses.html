@@ -1,0 +1,69 @@
+<div class="container">
+  <h1>Dépenses 💸</h1>
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (success) {
+    <div class="success">{{ success }}</div>
+  }
+
+  <div class="new-expense">
+    <h2>Ajouter une dépense</h2>
+
+    <div class="form-group">
+      <label>Description</label>
+      <input type="text" [(ngModel)]="newExpense.description" name="description" required />
+    </div>
+
+    <div class="form-group">
+      <label>Montant (€)</label>
+      <input type="number" [(ngModel)]="newExpense.amount" name="amount" required />
+    </div>
+
+    <div class="form-group">
+      <label>Catégorie</label>
+      <select [(ngModel)]="newExpense.category" name="category">
+        @for (cat of categories; track cat) {
+          <option [value]="cat">{{ cat }}</option>
+        }
+      </select>
+    </div>
+
+    <button (click)="createExpense()">Ajouter</button>
+  </div>
+
+  <h2>Historique des dépenses</h2>
+
+  @if (expenses.length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Montant</th>
+          <th>Catégorie</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (expense of expenses; track expense.id) {
+          <tr>
+            <td>{{ expense.description }}</td>
+            <td>{{ expense.amount }} €</td>
+            <td>{{ expense.category }}</td>
+            <td>{{ expense.expenseDate | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>
+              <button (click)="deleteExpense(expense.id!)">Supprimer</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  @if (expenses.length === 0) {
+    <p>Aucune dépense enregistrée.</p>
+  }
+</div>
