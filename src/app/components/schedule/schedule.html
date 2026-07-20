@@ -1,0 +1,81 @@
+<div class="container">
+  <h1>Emploi du temps 📅</h1>
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (success) {
+    <div class="success">{{ success }}</div>
+  }
+
+  <div class="new-schedule">
+    <h2>Ajouter un planning</h2>
+
+    <div class="form-group">
+      <label>Employé</label>
+      <input type="text" [(ngModel)]="newSchedule.employeeName" name="employeeName" required />
+    </div>
+
+    <div class="form-group">
+      <label>Jour</label>
+      <select [(ngModel)]="newSchedule.day" name="day">
+        @for (day of days; track day) {
+          <option [value]="day">{{ day }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Heure de début</label>
+      <input type="time" [(ngModel)]="newSchedule.startTime" name="startTime" />
+    </div>
+
+    <div class="form-group">
+      <label>Heure de fin</label>
+      <input type="time" [(ngModel)]="newSchedule.endTime" name="endTime" />
+    </div>
+
+    <div class="form-group">
+      <label>Note</label>
+      <input type="text" [(ngModel)]="newSchedule.note" name="note" />
+    </div>
+
+    <button (click)="createSchedule()">Ajouter</button>
+  </div>
+
+  <h2>Planning de la semaine</h2>
+
+  @if (schedules.length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>Employé</th>
+          <th>Jour</th>
+          <th>Début</th>
+          <th>Fin</th>
+          <th>Note</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (schedule of schedules; track schedule.id) {
+          <tr>
+            <td>{{ schedule.employeeName }}</td>
+            <td>{{ schedule.day }}</td>
+            <td>{{ schedule.startTime }}</td>
+            <td>{{ schedule.endTime }}</td>
+            <td>{{ schedule.note }}</td>
+            <td>
+              <button (click)="deleteSchedule(schedule.id!)">Supprimer</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  @if (schedules.length === 0) {
+    <p>Aucun planning enregistré.</p>
+  }
+</div>
