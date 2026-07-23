@@ -15,7 +15,9 @@ export class ProductList implements OnInit {
   loading = false;
   error = '';
   selectedCategory = '';
+  selectedBrand = '';
   categories = ['', 'SNEAKER', 'VETEMENT', 'ACCESSOIRE'];
+  brands: string[] = [];
 
   constructor(
     private productService: ProductService,
@@ -25,11 +27,24 @@ export class ProductList implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts();
+    this.loadBrands();
   }
 
+ loadBrands(): void {
+    this.productService.getBrands().subscribe({
+      next: (data) => {
+        console.log('brands:', data);
+        this.brands = ['', ...data];
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.error = 'Erreur lors du chargement des marques';
+      }
+    });
+  }
 
   loadProducts(): void {
-    this.productService.getAll(this.selectedCategory).subscribe({
+    this.productService.getAll(this.selectedCategory, this.selectedBrand).subscribe({
       next: (data) => {
         this.products = [...data];
         this.cdr.detectChanges();
@@ -41,6 +56,10 @@ export class ProductList implements OnInit {
   }
 
   onCategoryChange(): void {
+    this.loadProducts();
+  }
+
+  onBrandChange(): void {
     this.loadProducts();
   }
 

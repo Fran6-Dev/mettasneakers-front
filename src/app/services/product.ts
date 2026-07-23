@@ -29,14 +29,22 @@ export class ProductService {
     return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
-  getAll(category?: string): Observable<Product[]> {
-    const url = category ? `${this.apiUrl}?category=${category}` : this.apiUrl;
-    return this.http.get<Product[]>(url, { headers: this.getHeaders()});
-  }
+  getAll(category?: string, brand?: string): Observable<Product[]> {
+    let url = this.apiUrl;
+    const params = [];
+    if (category) params.push(`category=${category}`);
+    if (brand) params.push(`brand=${brand}`);
+    if (params.length > 0) url += `?${params.join('&')}`;
+    return this.http.get<Product[]>(url, { headers: this.getHeaders() });
+}
 
   getById(id: number): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${id}`, { headers: this.getHeaders()});
   }
+
+  getBrands(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/brands`, { headers: this.getHeaders() });
+}
 
   create(product: Product): Observable<Product> {
     return this.http.post<Product>(this.apiUrl, product, { headers: this.getHeaders()});

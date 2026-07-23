@@ -5,11 +5,18 @@
     <button (click)="router.navigate(['/products/add'])">Ajouter un produit</button>
   </div>
 
-  <div class="filters">
+ <div class="filters">
   <select [(ngModel)]="selectedCategory" (ngModelChange)="onCategoryChange()">
     <option value="">Toutes les catégories</option>
     @for (cat of categories.slice(1); track cat) {
       <option [value]="cat">{{ cat }}</option>
+    }
+  </select>
+
+  <select [(ngModel)]="selectedBrand" (ngModelChange)="onBrandChange()">
+    <option value="">Toutes les marques</option>
+    @for (brand of brands.slice(1); track brand) {
+      <option [value]="brand">{{ brand }}</option>
     }
   </select>
 </div>
