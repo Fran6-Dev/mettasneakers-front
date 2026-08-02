@@ -1,44 +1,182 @@
-.filters {
-  margin-bottom: 1.5rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+.products-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
+
+    gap: 24px;
+
+    margin-top: 30px;
+
 }
 
-.filters select {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  outline: none;
-  background: white;
-  cursor: pointer;
+.product-card {
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,.06);
+
+    border: 1px solid #ececec;
+
+    transition: .25s;
 }
 
-.filters select:focus {
-  border-color: #1a1a1a;
+.product-card:hover{
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 15px 35px rgba(0,0,0,.12);
+
 }
 
-td button {
-  padding: 6px 12px;
-  font-size: 13px;
-  margin-right: 6px;
+.card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
 }
 
-td button:first-child {
-  background: #f0f0f0;
-  color: #1a1a1a;
+.card-header h3{
+
+    margin:0;
+
+    font-size:20px;
+
+    color:#222;
+
 }
 
-td button:first-child:hover {
-  background: #e0e0e0;
+.stock{
+
+    background:#dcfce7;
+
+    color:#166534;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    font-size:13px;
+
+    font-weight:600;
+
 }
 
-td button:last-child {
-  background: #fee2e2;
-  color: #dc2626;
+.low-stock{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
 }
 
-td button:last-child:hover {
-  background: #fecaca;
+.card-body{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+.info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    border-bottom:1px solid #f3f3f3;
+
+    padding-bottom:10px;
+
+}
+
+.info span{
+
+    color:#777;
+
+    font-size:14px;
+
+}
+
+.info strong{
+
+    color:#111;
+
+}
+
+.card-actions{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:24px;
+
+}
+
+.card-actions button{
+
+    flex:1;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.2s;
+
+}
+
+.edit{
+
+    background:#f3f4f6;
+
+}
+
+.edit:hover{
+
+    background:#e5e7eb;
+
+}
+
+.delete{
+
+    background:#dc2626;
+
+    color:white;
+
+}
+
+.delete:hover{
+
+    background:#b91c1c;
+
+}
+
+@media(max-width:768px){
+
+    .products-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
 }

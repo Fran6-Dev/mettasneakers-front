@@ -1,65 +1,62 @@
-<div class="container">
-  <h1>Liste des produits 👟</h1>
+<div class="products-grid">
 
-  <div class="actions">
-    <button (click)="router.navigate(['/products/add'])">Ajouter un produit</button>
-  </div>
+  @for (product of products; track product.id) {
 
- <div class="filters">
-  <select [(ngModel)]="selectedCategory" (ngModelChange)="onCategoryChange()">
-    <option value="">Toutes les catégories</option>
-    @for (cat of categories.slice(1); track cat) {
-      <option [value]="cat">{{ cat }}</option>
-    }
-  </select>
+    <div class="product-card">
 
-  <select [(ngModel)]="selectedBrand" (ngModelChange)="onBrandChange()">
-    <option value="">Toutes les marques</option>
-    @for (brand of brands.slice(1); track brand) {
-      <option [value]="brand">{{ brand }}</option>
-    }
-  </select>
-</div>
+      <div class="card-header">
+        <h3>{{ product.name }}</h3>
+        <span class="stock" [class.low-stock]="product.stock <= 2">
+          {{ product.stock }} en stock
+        </span>
+      </div>
 
-  @if (error) {
-    <div class="error">{{ error }}</div>
+      <div class="card-body">
+
+        <div class="info">
+          <span>🏷️ Marque</span>
+          <strong>{{ product.brand }}</strong>
+        </div>
+
+        <div class="info">
+          <span>📦 Catégorie</span>
+          <strong>{{ product.category }}</strong>
+        </div>
+
+        <div class="info">
+          <span>👟 Taille</span>
+          <strong>{{ product.size }}</strong>
+        </div>
+
+        <div class="info">
+          <span>💰 Prix</span>
+          <strong>{{ product.price }} €</strong>
+        </div>
+
+      </div>
+
+      <div class="card-actions">
+
+        <button
+          class="edit"
+          (click)="router.navigate(['/products/edit', product.id])">
+
+          Modifier
+
+        </button>
+
+        <button
+          class="delete"
+          (click)="deleteProduct(product.id!)">
+
+          Supprimer
+
+        </button>
+
+      </div>
+
+    </div>
+
   }
 
-  @if (products.length > 0) {
-
-    
-    <table>
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Marque</th>
-          <th>Catégorie</th>
-          <th>Prix</th>
-          <th>Taille</th>
-          <th>Stock</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (product of products; track product.id) {
-          <tr>
-            <td>{{ product.name }}</td>
-            <td>{{ product.brand }}</td>
-            <td>{{ product.category }}</td>
-            <td>{{ product.price }} €</td>
-            <td>{{ product.size}}</td>
-            <td>{{ product.stock }}</td>
-            <td>
-              <button (click)="router.navigate(['/products/edit', product.id])">Modifier</button>
-              <button (click)="deleteProduct(product.id!)">Supprimer</button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  }
-
-  @if (products.length === 0) {
-    <p>Aucun produit trouvé.</p>
-  }
 </div>

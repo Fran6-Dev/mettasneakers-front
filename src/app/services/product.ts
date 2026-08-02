@@ -13,6 +13,7 @@ export interface Product {
   size: string;
   stock: number;
   description?: string;
+  imageUrl?: string;
 }
 
 

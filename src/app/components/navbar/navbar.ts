@@ -15,6 +15,8 @@ export class Navbar {
     public router: Router
   ) {}
 
+  menuOpen = false;
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

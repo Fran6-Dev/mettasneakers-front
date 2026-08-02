@@ -1,19 +1,74 @@
 @if (isLoggedIn()) {
-  <nav class="navbar">
-    <div class="navbar-brand">
-      👟 Mettasneakers
-    </div>
-    <div class="navbar-links">
-      <a routerLink="/products" routerLinkActive="active">Produits</a>
-      <a routerLink="/sales" routerLinkActive="active">Ventes</a>
+<nav class="navbar">
 
-      @if (isAdmin()) {
-        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-        <a routerLink="/expenses" routerLinkActive="active">Dépenses</a>
-      }
+  <div class="navbar-brand">
+    👟 Mettasneakers
+  </div>
 
-      <a routerLink="/schedule" routerLinkActive="active">Planning</a>
-      <button (click)="logout()">Déconnexion</button>
-    </div>
-  </nav>
+  <!-- Desktop -->
+  <div class="navbar-links desktop">
+    <a routerLink="/products" routerLinkActive="active">Produits</a>
+    <a routerLink="/sales" routerLinkActive="active">Ventes</a>
+
+    @if (isAdmin()) {
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/expenses" routerLinkActive="active">Dépenses</a>
+    }
+
+    <a routerLink="/schedule" routerLinkActive="active">Planning</a>
+
+    <button (click)="logout()">Déconnexion</button>
+  </div>
+
+  <!-- Burger -->
+  <button class="burger" (click)="menuOpen = !menuOpen">
+    ☰
+  </button>
+
+</nav>
+
+<div
+  class="overlay"
+  [class.open]="menuOpen"
+  (click)="menuOpen = false">
+</div>
+
+<div class="mobile-menu" [class.open]="menuOpen">
+
+  <div class="mobile-header">
+    <span>Menu</span>
+
+    <button class="close" (click)="menuOpen = false">
+      ✕
+    </button>
+  </div>
+
+  <a routerLink="/products" (click)="menuOpen=false">Produits</a>
+
+  <a routerLink="/sales" (click)="menuOpen=false">
+    Ventes
+  </a>
+
+  @if (isAdmin()) {
+
+    <a routerLink="/dashboard" (click)="menuOpen=false">
+      Dashboard
+    </a>
+
+    <a routerLink="/expenses" (click)="menuOpen=false">
+      Dépenses
+    </a>
+
+  }
+
+  <a routerLink="/schedule" (click)="menuOpen=false">
+    Planning
+  </a>
+
+  <button (click)="logout()">
+    Déconnexion
+  </button>
+
+</div>
+
 }
