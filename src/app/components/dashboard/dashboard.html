@@ -1,36 +1,78 @@
 <div class="container">
-  <h1>Dashboard 📊</h1>
+  <div class="dashboard-header">
+    <h1>Dashboard 📊</h1>
+    <div class="period-filters">
+      @for (p of periods; track p.value) {
+        <button
+          [class.active]="selectedPeriod === p.value"
+          (click)="selectPeriod(p.value)">
+          {{ p.label }}
+        </button>
+      }
+    </div>
+  </div>
 
   @if (error) {
     <div class="error">{{ error }}</div>
   }
 
   @if (data) {
-    <div class="stats">
-      <div class="stat-card">
-        <h3>Chiffre d'affaires</h3>
-        <p class="stat-value">{{ data.totalRevenue }} €</p>
+    <div class="stats-grid">
+
+      <div class="stat-card revenue">
+        <div class="stat-icon">💰</div>
+        <div class="stat-content">
+          <p class="stat-label">Chiffre d'affaires</p>
+          <p class="stat-value">{{ data.totalRevenue.toFixed(2) }} €</p>
+        </div>
       </div>
 
-      <div class="stat-card">
-        <h3>Dépenses</h3>
-        <p class="stat-value">{{ data.totalExpenses }} €</p>
+      <div class="stat-card expenses">
+        <div class="stat-icon">📉</div>
+        <div class="stat-content">
+          <p class="stat-label">Dépenses</p>
+          <p class="stat-value">{{ data.totalExpenses.toFixed(2) }} €</p>
+        </div>
       </div>
 
-      <div class="stat-card" [class.positive]="data.profit > 0" [class.negative]="data.profit < 0">
-        <h3>Bénéfice</h3>
-        <p class="stat-value">{{ data.profit }} €</p>
+      <div class="stat-card" [class.profit-positive]="data.profit > 0" [class.profit-negative]="data.profit < 0">
+        <div class="stat-icon">{{ data.profit > 0 ? '📈' : '📉' }}</div>
+        <div class="stat-content">
+          <p class="stat-label">Bénéfice net</p>
+          <p class="stat-value">{{ data.profit.toFixed(2) }} €</p>
+          <p class="stat-sub">{{ data.profit > 0 ? '▲ Positif' : '▼ Négatif' }}</p>
+        </div>
       </div>
 
-      <div class="stat-card">
-        <h3>Nombre de ventes</h3>
-        <p class="stat-value">{{ data.totalSales }}</p>
+      <div class="stat-card sales">
+        <div class="stat-icon">🛍️</div>
+        <div class="stat-content">
+          <p class="stat-label">Ventes</p>
+          <p class="stat-value">{{ data.totalSales }}</p>
+          <p class="stat-sub">transactions</p>
+        </div>
       </div>
 
-      <div class="stat-card">
-        <h3>Produits en stock</h3>
-        <p class="stat-value">{{ data.totalProducts }}</p>
+      <div class="stat-card products">
+        <div class="stat-icon">👟</div>
+        <div class="stat-content">
+          <p class="stat-label">Produits</p>
+          <p class="stat-value">{{ data.totalProducts }}</p>
+          <p class="stat-sub">références en stock</p>
+        </div>
       </div>
+
+      <div class="stat-card avg">
+        <div class="stat-icon">🧾</div>
+        <div class="stat-content">
+          <p class="stat-label">Panier moyen</p>
+          <p class="stat-value">
+            {{ data.totalSales > 0 ? (data.totalRevenue / data.totalSales).toFixed(2) : '0.00' }} €
+          </p>
+          <p class="stat-sub">par transaction</p>
+        </div>
+      </div>
+
     </div>
   }
 </div>

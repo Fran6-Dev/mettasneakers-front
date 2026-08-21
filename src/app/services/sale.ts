@@ -3,22 +3,32 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-export interface Sale {
+export interface SaleItem {
   id?: number;
-  productId?: number;
   productName?: string;
   productBrand?: string;
+  productSize?: string;
   quantity: number;
-  productSize: string;
-  promotion: number;
+  unitPrice?: number;
+  promotion?: number;
   totalPrice?: number;
-  saleDate?: string;
 }
 
-export interface CreateSaleRequest {
+export interface Sale {
+  id?: number;
+  totalAmount?: number;
+  saleDate?: string;
+  items: SaleItem[];
+}
+
+export interface CreateSaleItemRequest {
   productId: number;
   quantity: number;
   promotion: number;
+}
+
+export interface CreateSaleRequest {
+  items: CreateSaleItemRequest[];
 }
 
 @Injectable({
@@ -32,7 +42,7 @@ export class SaleService {
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    return new HttpHeaders({ Authorization: `Bearer ${token}`});
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
   getAll(): Observable<Sale[]> {
@@ -40,6 +50,6 @@ export class SaleService {
   }
 
   create(request: CreateSaleRequest): Observable<Sale> {
-    return this.http.post<Sale>(this.apiUrl, request, { headers: this.getHeaders()});
+    return this.http.post<Sale>(this.apiUrl, request, { headers: this.getHeaders() });
   }
 }

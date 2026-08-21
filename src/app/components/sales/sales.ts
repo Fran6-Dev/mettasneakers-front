@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Product, ProductService } from '../../services/product';
-import { Sale, SaleService, CreateSaleRequest } from '../../services/sale';
+import { Sale, SaleService, CreateSaleRequest, CreateSaleItemRequest } from '../../services/sale';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -14,14 +14,13 @@ export class Sales implements OnInit {
 
   sales: Sale[] = [];
   products: Product[] = [];
+  filteredProducts: Product[] = [];
+  cart: CreateSaleItemRequest[] = [];
+  cartDetails: { product: Product; quantity: number; promotion: number }[] = [];
+
+  searchQuery = '';
   error = '';
   success = '';
-
-  newSale : CreateSaleRequest = {
-    productId: 0,
-    quantity: 1,
-    promotion: 0,
-  };
 
   constructor(
     private saleService: SaleService,
@@ -48,24 +47,68 @@ export class Sales implements OnInit {
     this.productService.getAll().subscribe({
       next: (data) => {
         this.products = [...data];
+        this.filteredProducts = [...data];
         this.cdr.detectChanges();
       },
       error: () => this.error = 'Erreur lors du chargement des produits'
     });
   }
 
-  createSale(): void {
+  onSearch(): void {
+    const q = this.searchQuery.toLowerCase();
+    this.filteredProducts = this.products.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.brand.toLowerCase().includes(q) ||
+      (p.size && p.size.toString().includes(q))
+    );
+  }
+
+  addToCart(product: Product): void {
+    const existing = this.cartDetails.find(c => c.product.id === product.id);
+    if (existing) {
+      existing.quantity++;
+    } else {
+      this.cartDetails.push({ product, quantity: 1, promotion: 0 });
+    }
+  }
+
+  removeFromCart(index: number): void {
+    this.cartDetails.splice(index, 1);
+  }
+
+  getCartTotal(): number {
+    return this.cartDetails.reduce((total, item) => {
+      return total + (item.product.price * item.quantity) * (1 - item.promotion / 100);
+    }, 0);
+  }
+
+  validateSale(): void {
+    if (this.cartDetails.length === 0) {
+      this.error = 'Le panier est vide';
+      return;
+    }
+
     this.error = '';
     this.success = '';
-    this.saleService.create(this.newSale).subscribe({
+
+    const request: CreateSaleRequest = {
+      items: this.cartDetails.map(item => ({
+        productId: item.product.id!,
+        quantity: item.quantity,
+        promotion: item.promotion
+      }))
+    };
+
+    this.saleService.create(request).subscribe({
       next: () => {
-        this.success = 'Vente enregistrée avec succès !';
-        this.newSale = { productId: 0, quantity: 1, promotion : 0 };
+        this.success = `Vente #${Date.now()} enregistrée avec succès !`;
+        this.cartDetails = [];
+        this.searchQuery = '';
+        this.filteredProducts = [...this.products];
         this.loadSales();
         this.loadProducts();
       },
       error: (err) => this.error = 'Erreur : stock insuffisant ou produit introuvable'
     });
   }
-
 }

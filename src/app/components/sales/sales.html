@@ -9,60 +9,110 @@
     <div class="success">{{ success }}</div>
   }
 
-  <div class="new-sale">
-    <h2>Enregistrer une vente</h2>
-    <div class="form-group">
-      <label>Produit</label>
-      <select [(ngModel)]="newSale.productId" name="productId">
-        <option [value]="0">Sélectionner un produit</option>
-        @for (product of products; track product.id) {
-          <option [value]="product.id"> {{ product.brand }} - {{ product.name }} - {{ product.size }} (Stock: {{ product.stock }})</option>
+  <div class="sale-layout">
+
+    <!-- Recherche produits -->
+    <div class="products-panel">
+      <h2>Produits</h2>
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearch()"
+        placeholder="Rechercher par nom, marque, taille..."
+        class="search-input"
+      />
+
+      <div class="products-list">
+        @for (product of filteredProducts; track product.id) {
+          <div class="product-item" (click)="addToCart(product)">
+            <div class="product-info">
+              <span class="product-name">{{ product.name }}</span>
+              <span class="product-meta">{{ product.brand }} · Taille {{ product.size }}</span>
+            </div>
+            <div class="product-right">
+              <span class="product-price">{{ product.price }} €</span>
+              <span class="product-stock" [class.low]="product.stock <= 2">{{ product.stock }} en stock</span>
+            </div>
+          </div>
         }
-      </select>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label>Quantité</label>
-      <input type="number" [(ngModel)]="newSale.quantity" name="quantity" min="1" />
-    </div>
+    <!-- Panier -->
+    <div class="cart-panel">
+      <h2>Panier</h2>
 
-    <div class="form-group">
-        <label>Promotion</label>
-        <input type="number" [(ngModel)]="newSale.promotion" name="promotion" min="0"/>
-    </div>
+      @if (cartDetails.length === 0) {
+        <p class="empty-cart">Cliquez sur un produit pour l'ajouter</p>
+      }
 
-    <button (click)="createSale()">Enregistrer la vente</button>
+      @for (item of cartDetails; track item.product.id; let i = $index) {
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <span class="cart-item-name">{{ item.product.name }}</span>
+            <span class="cart-item-meta">{{ item.product.brand }} · {{ item.product.size }}</span>
+          </div>
+          <div class="cart-item-controls">
+            <input
+              type="number"
+              [(ngModel)]="item.quantity"
+              min="1"
+              [max]="item.product.stock"
+              class="qty-input"
+            />
+            <input
+              type="number"
+              [(ngModel)]="item.promotion"
+              min="0"
+              max="100"
+              placeholder="Promo %"
+              class="promo-input"
+            />
+            <span class="item-total">
+              {{ (item.product.price * item.quantity * (1 - item.promotion / 100)).toFixed(2) }} €
+            </span>
+            <button class="remove-btn" (click)="removeFromCart(i)">✕</button>
+          </div>
+        </div>
+      }
+
+      @if (cartDetails.length > 0) {
+        <div class="cart-total">
+          <span>Total</span>
+          <strong>{{ getCartTotal().toFixed(2) }} €</strong>
+        </div>
+        <button class="validate-btn" (click)="validateSale()">
+          Valider la vente
+        </button>
+      }
+    </div>
   </div>
 
-  <h2>Historique des ventes</h2>
+  <!-- Historique -->
+  <h2 class="history-title">Historique des ventes</h2>
 
   @if (sales.length > 0) {
-    <table>
-      <thead>
-        <tr>
-          <th>Produit</th>
-          <th>Marque</th>
-          <th>Quantité</th>
-          <th>Taille</th>
-          <th>Promotion</th>
-          <th>Total</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (sale of sales; track sale.id) {
-          <tr>
-            <td>{{ sale.productName }}</td>
-            <td>{{ sale.productBrand }}</td>
-            <td>{{ sale.quantity }}</td>
-            <td>{{ sale.productSize || '-' }}</td>
-            <td>{{ sale.promotion }}</td>
-            <td>{{ sale.totalPrice }} €</td>
-            <td>{{ sale.saleDate | date:'dd/MM/yyyy HH:mm' }}</td>
-          </tr>
-        }
-      </tbody>
-    </table>
+    <div class="sales-history">
+      @for (sale of sales; track sale.id) {
+        <div class="sale-card">
+          <div class="sale-header">
+            <span class="sale-id">Vente #{{ sale.id }}</span>
+            <span class="sale-date">{{ sale.saleDate | date:'dd/MM/yyyy HH:mm' }}</span>
+            <span class="sale-total">{{ sale.totalAmount?.toFixed(2) }} €</span>
+          </div>
+          <div class="sale-items">
+            @for (item of sale.items; track item.id) {
+              <div class="sale-item-row">
+                <span>{{ item.productName }} — {{ item.productBrand }} ({{ item.productSize }})</span>
+                <span>x{{ item.quantity }}</span>
+                <span>{{ item.promotion }}% off</span>
+                <span>{{ item.totalPrice?.toFixed(2) }} €</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
   }
 
   @if (sales.length === 0) {

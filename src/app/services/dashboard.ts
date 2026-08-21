@@ -26,7 +26,7 @@ export class DashboardService {
     return new HttpHeaders({ Authorization: `Bearer ${token}`});
   }
 
-  getDashboard(): Observable<DashboardData> {
-    return this.http.get<DashboardData>(this.apiUrl, { headers: this.getHeaders() });
-  }
+  getDashboard(period: string = 'all'): Observable<DashboardData> {
+    return this.http.get<DashboardData>(`${this.apiUrl}?period=${period}`, { headers: this.getHeaders() });
+}
 }

@@ -1,21 +1,245 @@
-.new-sale {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  border: 1px solid #eee;
+.sale-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
   margin-bottom: 2rem;
-  max-width: 500px;
 }
 
-.new-sale button {
-  margin-top: 0.5rem;
+.products-panel, .cart-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #eee;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #1a1a1a;
+}
+
+.products-list {
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.product-item:hover {
+  background: #f9f9f9;
+  border-color: #1a1a1a;
+}
+
+.product-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.product-meta {
+  font-size: 12px;
+  color: #888;
+  display: block;
+}
+
+.product-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.product-stock {
+  font-size: 11px;
+  color: #16a34a;
+  display: block;
+  text-align: right;
+}
+
+.product-stock.low {
+  color: #dc2626;
+}
+
+.empty-cart {
+  color: #aaa;
+  font-size: 13px;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 8px;
+}
+
+.cart-item-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.cart-item-meta {
+  font-size: 11px;
+  color: #888;
+  display: block;
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qty-input {
+  width: 55px;
+  padding: 5px 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.promo-input {
+  width: 65px;
+  padding: 5px 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.item-total {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  min-width: 60px;
+  text-align: right;
+}
+
+.remove-btn {
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0 0.5rem;
+  font-size: 16px;
+  border-top: 1px solid #eee;
+  margin-top: 8px;
+}
+
+.cart-total strong {
+  font-size: 20px;
+}
+
+.validate-btn {
+  width: 100%;
+  padding: 12px;
   background: #1a1a1a;
   color: white;
-  width: 100%;
-  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
 }
 
-.new-sale button:hover {
+.validate-btn:hover {
   background: #333;
+}
+
+.history-title {
+  margin-bottom: 1rem;
+}
+
+.sales-history {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sale-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  overflow: hidden;
+}
+
+.sale-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f9f9f9;
+  border-bottom: 1px solid #eee;
+}
+
+.sale-id {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.sale-date {
+  font-size: 12px;
+  color: #888;
+}
+
+.sale-total {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.sale-items {
+  padding: 8px 16px;
+}
+
+.sale-item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 13px;
+  color: #555;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.sale-item-row:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .sale-layout {
+    grid-template-columns: 1fr;
+  }
 }
